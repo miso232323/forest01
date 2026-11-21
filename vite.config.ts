@@ -12,6 +12,38 @@ export default defineConfig(() => {
     plugins: [
       react(),
       tailwindcss(),
+      {
+        name: 'absolute-opengraph-urls',
+        transformIndexHtml(html: string) {
+          const rawOrigin =
+            process.env.VITE_SITE_URL ||
+            (process.env.VERCEL_PROJECT_PRODUCTION_URL
+              ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+              : '') ||
+            (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
+            process.env.APP_URL ||
+            '';
+          const baseUrl = rawOrigin.replace(/\/+$/, '');
+          if (!baseUrl) {
+            return html;
+          }
+          const absoluteOgImage = `${baseUrl}/og-image.jpg`;
+          const absoluteUrl = `${baseUrl}/`;
+          const injectedTags = [
+            `<link rel="canonical" href="${absoluteUrl}" />`,
+            `<meta property="og:url" content="${absoluteUrl}" />`,
+            absoluteOgImage.startsWith('https://')
+              ? `<meta property="og:image:secure_url" content="${absoluteOgImage}" />`
+              : '',
+          ]
+            .filter(Boolean)
+            .join('\n    ');
+
+          return html
+            .replaceAll('"/og-image.jpg"', `"${absoluteOgImage}"`)
+            .replace('</head>', `    ${injectedTags}\n  </head>`);
+        },
+      },
       // Copies src/assets into dist/ so root-relative URLs like
       // "/src/assets/images/..." (e.g. generate_image output) still resolve
       // in production builds. Do not remove.

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
-const AUDIO_SRC = '/assets/aistudio/Sunlight_on_Mahogany_1d0f1fdd.mp3';
+const AUDIO_SRC = '/assets/aistudio/Sunlight_on_Mahogany__1__1d0f1fdd.mp3';
 
 export function BackgroundMusicPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);

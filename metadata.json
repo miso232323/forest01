@@ -1,0 +1,6 @@
+{
+  "name": "지도에 마음을 담다 | 그림지도 제작소",
+  "description": "이야기와 장소를 약도, 상세도, 조감도, 전도, 수목원 테마지도의 5가지 손그림 스타일로 담아내는 일러스트 지도 제작 스튜디오",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

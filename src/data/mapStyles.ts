@@ -1,3 +1,5 @@
+export const PRODUCTION_FORM_URL = 'https://forms.gle/G6t8SsftQTnhhsPC9';
+
 export type MapStyleId = 'yakdo' | 'detail' | 'aerial' | 'overview' | 'botanical';
 
 export interface MapStyleSpec {

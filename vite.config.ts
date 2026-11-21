@@ -15,19 +15,25 @@ export default defineConfig(() => {
       {
         name: 'absolute-opengraph-urls',
         transformIndexHtml(html: string) {
-          const rawOrigin =
-            process.env.VITE_SITE_URL ||
-            (process.env.VERCEL_PROJECT_PRODUCTION_URL
+          const candidates = [
+            process.env.VITE_SITE_URL,
+            process.env.VERCEL_PROJECT_PRODUCTION_URL
               ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-              : '') ||
-            (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
-            process.env.APP_URL ||
-            '';
-          const baseUrl = rawOrigin.replace(/\/+$/, '');
-          if (!baseUrl) {
+              : '',
+            process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '',
+            process.env.APP_URL,
+          ];
+          const validOrigin = candidates.find(
+            (val): val is string =>
+              typeof val === 'string' &&
+              (val.startsWith('https://') || val.startsWith('http://'))
+          );
+          if (!validOrigin) {
             return html;
           }
+          const baseUrl = validOrigin.replace(/\/+$/, '');
           const absoluteOgImage = `${baseUrl}/og-image.jpg`;
+          const absoluteOgLogo = `${baseUrl}/favicon-192x192.png`;
           const absoluteUrl = `${baseUrl}/`;
           const injectedTags = [
             `<link rel="canonical" href="${absoluteUrl}" />`,
@@ -41,6 +47,7 @@ export default defineConfig(() => {
 
           return html
             .replaceAll('"/og-image.jpg"', `"${absoluteOgImage}"`)
+            .replaceAll('"/favicon-192x192.png"', `"${absoluteOgLogo}"`)
             .replace('</head>', `    ${injectedTags}\n  </head>`);
         },
       },

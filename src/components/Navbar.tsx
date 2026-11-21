@@ -1,8 +1,6 @@
-interface NavbarProps {
-  onOpenInquiry: (mode: 'production' | 'consultation') => void;
-}
+import { PRODUCTION_FORM_URL } from '../data/mapStyles';
 
-export function Navbar({ onOpenInquiry }: NavbarProps) {
+export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-[#dfe3dc] bg-[#f8f9f7]/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-8 px-6 py-4 md:px-10">
@@ -47,13 +45,14 @@ export function Navbar({ onOpenInquiry }: NavbarProps) {
 
         {/* Zone 3: Single primary action */}
         <div className="flex items-center shrink-0">
-          <button
-            type="button"
-            onClick={() => onOpenInquiry('production')}
-            className="whitespace-nowrap shrink-0 rounded-md bg-[#1b4d3e] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#13382d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1b4d3e] cursor-pointer"
+          <a
+            href={PRODUCTION_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whitespace-nowrap shrink-0 rounded-md bg-[#1b4d3e] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#13382d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1b4d3e]"
           >
             제작 신청
-          </button>
+          </a>
         </div>
       </div>
     </header>

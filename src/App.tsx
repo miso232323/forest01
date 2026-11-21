@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight, Expand, MapPin } from 'lucide-react';
 import {
   MAP_STYLES,
   PROCESS_STEPS,
+  PRODUCTION_FORM_URL,
   SAMPLE_WORKS,
   STUDIO_METRICS,
   type MapStyleId,
@@ -65,7 +66,7 @@ export default function App() {
 
   return (
     <div id="top" className="min-h-screen bg-[#f8f9f7] text-[#161816]">
-      <Navbar onOpenInquiry={(mode) => openInquiry(mode, activeStyleId)} />
+      <Navbar />
 
       <main>
         {/* 1. Hero Section */}
@@ -412,14 +413,15 @@ export default function App() {
                 </div>
 
                 <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => openInquiry('production', activeStyle.id)}
-                    className="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-[#1b4d3e] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#13382d] cursor-pointer"
+                  <a
+                    href={PRODUCTION_FORM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-[#1b4d3e] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#13382d]"
                   >
                     {activeStyle.name} 제작 신청
                     <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </button>
+                  </a>
                   <button
                     type="button"
                     onClick={() => openInquiry('consultation', activeStyle.id)}
@@ -533,14 +535,15 @@ export default function App() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <button
-                type="button"
-                onClick={() => openInquiry('production', activeStyleId)}
-                className="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-white px-6 py-3.5 text-sm font-semibold text-[#14241e] transition-colors hover:bg-[#edf2ef] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              <a
+                href={PRODUCTION_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-white px-6 py-3.5 text-sm font-semibold text-[#14241e] transition-colors hover:bg-[#edf2ef] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 제작 신청하기
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </button>
+              </a>
               <button
                 type="button"
                 onClick={() => openInquiry('consultation', 'undecided')}
@@ -615,7 +618,6 @@ export default function App() {
       <MapLightboxModal
         item={lightboxItem}
         onClose={() => setLightboxItem(null)}
-        onRequestStyle={(styleId) => openInquiry('production', styleId)}
       />
 
       <InquiryModal

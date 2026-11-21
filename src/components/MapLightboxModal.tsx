@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { X, ArrowUpRight } from 'lucide-react';
 import { MapImage } from './MapImage';
-import type { MapStyleId } from '../data/mapStyles';
+import { PRODUCTION_FORM_URL, type MapStyleId } from '../data/mapStyles';
 
 export interface LightboxItem {
   title: string;
@@ -16,13 +16,11 @@ export interface LightboxItem {
 interface MapLightboxModalProps {
   item: LightboxItem | null;
   onClose: () => void;
-  onRequestStyle: (styleId: MapStyleId) => void;
 }
 
 export function MapLightboxModal({
   item,
   onClose,
-  onRequestStyle,
 }: MapLightboxModalProps) {
   useEffect(() => {
     if (!item) return;
@@ -84,18 +82,16 @@ export function MapLightboxModal({
           <p className="text-sm leading-relaxed text-[#525852] max-w-2xl">
             {item.description}
           </p>
-          <button
-            type="button"
-            onClick={() => {
-              const targetStyle = item.styleId;
-              onClose();
-              onRequestStyle(targetStyle);
-            }}
-            className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-[#1b4d3e] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#13382d] cursor-pointer"
+          <a
+            href={PRODUCTION_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-[#1b4d3e] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#13382d]"
           >
             이 스타일로 제작 신청
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </button>
+          </a>
         </div>
       </div>
     </div>
